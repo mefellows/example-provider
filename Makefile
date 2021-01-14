@@ -22,7 +22,7 @@ ci: test can_i_deploy $(DEPLOY_TARGET)
 # set as if it was on Github Actions.
 # Use this for quick feedback when playing around with your workflows.
 fake_ci: .env
-	CI=true \
+	@CI=true \
 	TRAVIS_COMMIT=`git rev-parse --short HEAD`+`date +%s` \
 	TRAVIS_BRANCH=`git rev-parse --abbrev-ref HEAD` \
 	PACT_BROKER_PUBLISH_VERIFICATION_RESULTS=true \
@@ -43,6 +43,7 @@ fake_ci_webhook:
 ## =====================
 
 test: .env
+	@echo "\n========== STAGE: test ==========\n"
 	npm run test
 
 ## =====================
@@ -55,13 +56,15 @@ no_deploy:
 	@echo "Not deploying as not on master branch"
 
 can_i_deploy: .env
-	"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${TRAVIS_COMMIT} --to prod
+	@echo "\n========== STAGE: can-i-deploy? ==========\n"
+	@"${PACT_CLI}" broker can-i-deploy --pacticipant ${PACTICIPANT} --version ${TRAVIS_COMMIT} --to prod
 
 deploy_app:
+	@echo "\n========== STAGE: deploy ==========\n"
 	@echo "Deploying to prod"
 
 tag_as_prod:
-	"${PACT_CLI}" broker create-version-tag \
+	@"${PACT_CLI}" broker create-version-tag \
 	  --pacticipant ${PACTICIPANT} \
 	  --version ${TRAVIS_COMMIT} \
 	  --tag prod
