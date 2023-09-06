@@ -33,6 +33,7 @@ describe("Pact Verification", () => {
       //consumerVersionTag: ['master', 'prod'], //the old way of specifying which pacts to verify
       consumerVersionSelectors: [{ tag: 'master', latest: true }, { deployed: true } ], // the new way of specifying which pacts to verify
       pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
+      publishVerificationResult: process.env.PACT_BROKER_PUBLISH_VERIFICATION_RESULTS ? true : false,
       enablePending: false,
       includeWipPactsSince: undefined
     }
