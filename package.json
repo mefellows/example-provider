@@ -14,7 +14,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@pact-foundation/pact": "^9.17.3",
+    "@pact-foundation/pact": "^12.1.0",
     "@pact-foundation/pact-node": "^10.17.2",
     "dotenv": "^8.2.0",
     "eslint": "^8.12.0",

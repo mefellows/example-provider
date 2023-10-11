@@ -13,7 +13,7 @@ const server = app.listen("8080");
 describe("Pact Verification", () => {
   it("validates the expectations of ProductService", () => {
     const baseOpts = {
-      logLevel: "INFO",
+      logLevel: "error",
       providerBaseUrl: "http://localhost:8080",
       providerVersion: process.env.GIT_COMMIT,
       providerVersionTags: process.env.GIT_BRANCH ? [process.env.GIT_BRANCH] : []
@@ -34,7 +34,6 @@ describe("Pact Verification", () => {
       pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
       publishVerificationResult: process.env.PACT_BROKER_PUBLISH_VERIFICATION_RESULTS ? true : false,
       enablePending: false,
-      includeWipPactsSince: undefined
     }
 
     const stateHandlers = {
