@@ -4,6 +4,9 @@ class Product {
         this.type = type;
         this.name = name;
         this.version = version;
+        if (!id || !type || !name) {
+            throw new Error("Invalid product");
+        }
     }
 }
 

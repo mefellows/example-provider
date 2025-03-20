@@ -17,6 +17,10 @@ class ProductRepository {
     async getById(id) {
         return this.products.get(id);
     }
+
+    async add(product) {
+        return this.products.set(product.id, product);
+    }
 }
 
 module.exports = ProductRepository;

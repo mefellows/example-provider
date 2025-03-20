@@ -3,5 +3,7 @@ const controller = require('./product.controller');
 
 router.get("/product/:id", controller.getById);
 router.get("/products", controller.getAll);
+router.post("/products", controller.create);
+router.post("/admin", controller.admin);
 
 module.exports = router;
