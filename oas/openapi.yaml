@@ -1,0 +1,143 @@
+openapi: "3.1.0"
+info:
+  title: Product API
+  description: Pactflow Product API demo
+  version: 1.0.0
+  license: 
+    name: private
+    url: https://www.example.com/license
+servers:
+  - url: http://127.0.0.1:8080
+    description: Dev server
+security:
+  - authorization: []
+paths:
+  /products:
+    post:
+      summary: Create a product
+      description: Creates a new product
+      operationId: createProduct
+      requestBody: 
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        "201":
+          description: successful operation
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "401":
+          description: Invalid ID supplied
+          content: {}
+    get:
+      summary: List all products
+      description: Returns all products
+      operationId: getAllProducts
+      responses:
+        "200":
+          description: successful operation
+          headers: 
+            content-type: 
+              description: "The content type"
+              schema: 
+                type: "string"          
+            # Uncomment me to fail the test
+            # foo-header: 
+            #   description: "The content type"
+            #   schema: 
+            #     type: "string"          
+          content:
+            "application/json":
+              schema:
+                type: "array"
+                items:
+                  $ref: '#/components/schemas/Product'
+              examples:
+                application/json:
+                  value:
+                    - id: 1234
+                      type: "food"
+                      price: 42
+                      name: "pizza"
+                      version: "1.0.0"
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "401":
+          description: Invalid ID supplied
+          content: {}
+  /product/{id}:
+    get:
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: getProductByID
+      parameters:
+      - name: id
+        in: path
+        description: ID of product to get
+        schema:
+          type: number
+        required: true
+        example: 10
+      responses:
+        "200":
+          description: successful operation
+          headers: 
+            content-type: 
+              description: "The content type"
+              schema: 
+                type: "string"     
+          content:
+            "application/json":
+              schema:
+                $ref: '#/components/schemas/Product'
+              examples:
+                application/json:
+                  value:
+                    id: 1234
+                    type: "food"
+                    price: 42
+                    name: "pizza"
+                    version: "1.0.0"
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "401":
+          description: Product not found
+          content: {}
+        "404":
+          description: Product not found
+          content: {}
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        # - colour
+      properties:
+        id:
+          type: number
+        type:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        price:
+          type: number
+        colour:
+          type: string
+          enum: 
+            - red
+            - blue
+            - green
+  securitySchemes:
+    authorization:
+      type: apiKey
+      name: authorization
+      in: header
