@@ -34,4 +34,14 @@ exports.create = async (req, res) => {
     }
 };
 
+exports.setup = async (req, res) => {
+    repository.setupProducts(req.body.products)
+    res.status(200).send()
+};
+
+exports.teardown = async (req, res) => {
+    repository.resetProducts()
+    res.status(200).send()
+};
+
 exports.repository = repository;
