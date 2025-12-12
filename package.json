@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=test node server.js",
     "test": "npx jest --colors --testTimeout 30000",
     "test:pact": "npx jest --colors --testTimeout 30000 --testMatch \"**/*.pact.test.js\""
   },

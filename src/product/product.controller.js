@@ -35,11 +35,13 @@ exports.create = async (req, res) => {
 };
 
 exports.setup = async (req, res) => {
+    console.log('setup', req.body)
     repository.setupProducts(req.body.products)
     res.status(200).send()
 };
 
 exports.teardown = async (req, res) => {
+    console.log('teardown')
     repository.resetProducts()
     res.status(200).send()
 };
