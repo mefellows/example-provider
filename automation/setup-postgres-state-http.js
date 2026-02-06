@@ -32,22 +32,44 @@ let pool = null;
 
 // Initialize pool on startup
 const initializePool = async () => {
-    pool = new Pool(connectionConfig);
-    try {
-        // Ensure table exists
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS products (
-                id VARCHAR(255) PRIMARY KEY,
-                product_id INTEGER NOT NULL,
-                type VARCHAR(255) NOT NULL,
-                name VARCHAR(255) NOT NULL,
-                version VARCHAR(50)
-            )
-        `);
-        console.log('Database initialized successfully');
-    } catch (error) {
-        console.error('Failed to initialize database:', error);
-        process.exit(1);
+    const maxRetries = 60; // 60 second timeout
+    let retries = 0;
+    
+    while (retries < maxRetries) {
+        try {
+            pool = new Pool(connectionConfig);
+            // Test connection
+            await pool.query('SELECT 1');
+            
+            // Ensure table exists
+            await pool.query(`
+                CREATE TABLE IF NOT EXISTS products (
+                    id VARCHAR(255) PRIMARY KEY,
+                    product_id INTEGER NOT NULL,
+                    type VARCHAR(255) NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    version VARCHAR(50)
+                )
+            `);
+            console.log('Database initialized successfully');
+            return;
+        } catch (error) {
+            retries++;
+            if (retries < maxRetries) {
+                console.log(`Database connection failed (attempt ${retries}/${maxRetries}). Retrying in 1s...`);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                if (pool) {
+                    try {
+                        await pool.end();
+                    } catch (e) {
+                        // ignore
+                    }
+                }
+            } else {
+                console.error('Failed to initialize database after 60 seconds:', error);
+                process.exit(1);
+            }
+        }
     }
 };
 

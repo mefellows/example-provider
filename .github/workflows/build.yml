@@ -59,7 +59,7 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v2
-      - run: docker pull pactfoundation/pact-cli:latest
+      - run: docker pull pactfoundation/pact:latest
       - name: Can I deploy?
         run: GIT_BRANCH=${GITHUB_REF:11} make can_i_deploy
 
@@ -69,7 +69,7 @@ jobs:
     needs: can-i-deploy
     steps:
       - uses: actions/checkout@v2
-      - run: docker pull pactfoundation/pact-cli:latest
+      - run: docker pull pactfoundation/pact:latest
       - name: Deploy
         run: GIT_BRANCH=${GITHUB_REF:11} make deploy
         if: github.ref == 'refs/heads/master'
