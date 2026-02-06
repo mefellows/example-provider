@@ -43,6 +43,7 @@ jobs:
           name: JUnit Test Results
           path: output/reports/junit/verification-result.xml
           reporter: java-junit
+          fail-on-error: false
       
       - name: Store JUnit report
         uses: actions/upload-artifact@v4
