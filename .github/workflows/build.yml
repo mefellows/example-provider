@@ -24,9 +24,10 @@ jobs:
       - name: Download and install Drift
         run: |
           wget https://download.pactflow.io/quilt/latest/linux-x86_64.zip
-          unzip linux-x86_64.zip
-          chmod +x quilt*
-          sudo mv quilt /usr/local/bin/
+          mkdir -p /tmp/quilt
+          unzip linux-x86_64.zip -d /tmp/quilt
+          chmod +x /tmp/quilt/quilt*
+          sudo mv /tmp/quilt/quilt /usr/local/bin/
           quilt --version
       
       - name: Install dependencies
