@@ -6,9 +6,9 @@
   "scripts": {
     "start": "NODE_ENV=test node server.js",
     "start:postgres": "NODE_ENV=test REPOSITORY_TYPE=postgres DB_HOST=localhost DB_PORT=5432 DB_USER=postgres DB_PASSWORD=postgres DB_NAME=product_service node server.js",
-    "db:start": "docker-compose up -d",
-    "db:stop": "docker-compose down",
-    "db:reset": "docker-compose down -v && docker-compose up -d",
+    "db:start": "docker compose up -d",
+    "db:stop": "docker compose down",
+    "db:reset": "docker compose down -v && docker compose up -d",
     "state-server:start": "node ./automation/setup-postgres-state-http.js server",
     "state-server:stop": "lsof -ti:9000 | xargs kill -9 2>/dev/null || true",
     "test2": "NODE_ENV=test npx jest --colors --testTimeout 30000 --testMatch \"**/api-inmemory.test.js\" && NODE_ENV=test npx jest --colors --testTimeout 30000 --testMatch \"**/api-postgres.test.js\"",
