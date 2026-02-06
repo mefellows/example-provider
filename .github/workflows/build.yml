@@ -36,6 +36,14 @@ jobs:
       - name: Run tests
         run: GIT_BRANCH=${GITHUB_REF:11} make ci
       
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Test Results
+          path: output/reports/junit/verification-result.xml
+          reporter: java-junit
+      
       - name: Store JUnit report
         uses: actions/upload-artifact@v4
         if: always()
