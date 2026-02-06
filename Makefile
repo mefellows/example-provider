@@ -46,11 +46,8 @@ fake_ci_webhook:
 ## Build/test tasks
 ## =====================
 
-test: 
-	echo "true"
-
-# test: .env
-# 	npm run test
+test: .env
+	npm run test
 
 ci:
 	@if make test; then \
