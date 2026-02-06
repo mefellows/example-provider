@@ -48,7 +48,7 @@ paths:
             examples:
               application/json:
                 value:
-                  id: 10
+                  id: 666
                   type: "beverage"
                   price: 10.99
                   name: "cola"
@@ -60,7 +60,7 @@ paths:
         "401":
           description: Unauthorized - missing or invalid token
           content: {}
-  /product/{id}:
+  /products/{id}:
     get:
       summary: Find product by ID
       description: Returns a single product

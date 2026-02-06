@@ -1,0 +1,156 @@
+quilt-testcase-file: v1
+title: "Product API Tests - PostgreSQL"
+
+sources:
+  - name: source-oas
+    path: ../openapi.yaml
+  - name: product-data
+    path: product.dataset.yaml
+  # Uses a local HTTP server to manipulate the PostgreSQL test state, allowing for faster execution by avoiding the overhead of starting/stopping a node runtime for each test case
+  - name: functions
+    path: product-postgres-http.lua
+  # No server, state will be pushed to a local script for execution (slower due to incurred overhead of start/stopping node runtime)
+  # - name: functions
+  #   path: product-postgres-local.lua
+
+plugins:
+  - name: oas
+  - name: json
+  - name: data
+  - name: http-dump
+  - name: junit-output
+
+global:
+  auth:
+    apply: true
+    parameters:
+      authentication:
+        scheme: bearer
+        token: ${functions:bearer_token}
+
+operations:
+  # GIVEN a valid bearer token
+  # WHEN getting all products
+  # THEN expect 200 OK response with product array
+  getAllProducts_Success:
+    target: source-oas:getAllProducts
+    description: "Get all products successfully"
+    expected:
+      response:
+        statusCode: 200
+
+  # GIVEN an invalid bearer token
+  # WHEN getting all products
+  # THEN expect 401 Unauthorized response
+  getAllProducts_Unauthorized:
+    target: source-oas:getAllProducts
+    description: "Get all products with invalid authorization"
+    exclude:
+      - auth
+    parameters:
+      headers:
+        authorization: "Bearer invalid-token"
+    expected:
+      response:
+        statusCode: 401
+
+  # GIVEN a valid bearer token and product data
+  # WHEN creating a product
+  # THEN expect 201 Created response
+  createProduct_Success:
+    target: source-oas:createProduct
+    description: "Create a product successfully"
+    dataset: product-data
+    parameters:
+      request:
+        body: ${product-data:products.product10}
+    expected:
+      response:
+        statusCode: 201
+
+  # GIVEN a valid bearer token and example product data
+  # WHEN creating a product
+  # THEN expect 201 Created response
+  createProduct_SuccessWithExample:
+    target: source-oas:createProduct
+    description: "Create a product using OpenAPI example"
+    expected:
+      response:
+        statusCode: 201
+
+  # GIVEN an invalid bearer token
+  # WHEN creating a product
+  # THEN expect 401 Unauthorized response
+  createProduct_Unauthorized:
+    target: source-oas:createProduct
+    description: "Create a product with invalid authorization"
+    exclude:
+      - auth
+    parameters:
+      headers:
+        authorization: "Bearer invalid-token"
+      request:
+        body:
+          id: 20
+          name: "test product"
+    expected:
+      response:
+        statusCode: 401
+
+  # GIVEN a valid bearer token and product ID
+  # WHEN getting a product by ID
+  # THEN expect 200 OK response with product details
+  getProductByID_Success:
+    target: source-oas:getProductByID
+    description: "Get a product by ID successfully"
+    dataset: product-data
+    parameters:
+      path:
+        id: ${product-data:products.product10.id}
+    expected:
+      response:
+        statusCode: 200
+
+  # GIVEN a valid bearer token and invalid product ID
+  # WHEN getting a product by ID
+  # THEN expect 400 Bad Request response
+  getProductByID_InvalidID:
+    target: source-oas:getProductByID
+    description: "Get a product with invalid ID format"
+    parameters:
+      path:
+        id: "invalid"
+    expected:
+      response:
+        statusCode: 400
+
+  # GIVEN a valid bearer token and non-existent product ID
+  # WHEN getting a product by ID
+  # THEN expect 404 Not Found response
+  getProductByID_NotFound:
+    target: source-oas:getProductByID
+    description: "Get a product that does not exist"
+    parameters:
+      path:
+        id: 99999
+    expected:
+      response:
+        statusCode: 404
+
+  # GIVEN an invalid bearer token
+  # WHEN getting a product by ID
+  # THEN expect 401 Unauthorized response
+  getProductByID_Unauthorized:
+    target: source-oas:getProductByID
+    description: "Get a product with invalid authorization"
+    exclude:
+      - auth
+    parameters:
+      headers:
+        authorization: "Bearer invalid-token"
+      path:
+        id: 10
+    expected:
+      response:
+        statusCode: 401
+
