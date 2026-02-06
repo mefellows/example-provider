@@ -27,7 +27,7 @@ jobs:
           mkdir -p /tmp/quilt
           unzip linux-x86_64.zip -d /tmp/quilt
           chmod +x /tmp/quilt/quilt*
-          sudo mv /tmp/quilt/quilt /usr/local/bin/
+          sudo mv /tmp/quilt/* /usr/local/bin/
           quilt --version
       
       - name: Install dependencies
