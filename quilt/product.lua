@@ -43,7 +43,7 @@ local exports = {
 
       if operation_id then
         local res = http({
-          url = "http://localhost:8080/test/teardown/" .. operation_id,
+          url = "http://localhost:8080/test/reset",
           method = "POST",
           headers = {
             Authorization = "Bearer " .. bearer_token(),

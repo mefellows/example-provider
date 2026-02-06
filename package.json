@@ -11,9 +11,10 @@
     "db:reset": "docker-compose down -v && docker-compose up -d",
     "state-server:start": "node ./automation/setup-postgres-state-http.js server",
     "state-server:stop": "lsof -ti:9000 | xargs kill -9 2>/dev/null || true",
-    "test": "NODE_ENV=test npx jest --colors --testTimeout 30000",
+    "test2": "NODE_ENV=test npx jest --colors --testTimeout 30000 --testMatch \"**/api-inmemory.test.js\" && NODE_ENV=test npx jest --colors --testTimeout 30000 --testMatch \"**/api-postgres.test.js\"",
+    "test": "npm run test:inmemory && npm run test:postgres",
     "test:postgres": "NODE_ENV=test npm run db:start && npm run state-server:start & npx jest --colors --testTimeout 30000 --testMatch \"**/*-postgres.test.js\" && npm run state-server:stop",
-    "test:pact": "npx jest --colors --testTimeout 30000 --testMatch \"**/*.pact.test.js\""
+    "test:inmemory": "NODE_ENV=test npx jest --colors --testTimeout 30000 --testMatch \"**/api-inmemory.test.js\""
   },
   "dependencies": {
     "cors": "^2.8.5",

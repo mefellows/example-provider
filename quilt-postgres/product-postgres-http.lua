@@ -26,8 +26,8 @@ local exports = {
           },
           body = ""
         })
-        if res.statusCode ~= 200 then
-          print("Setup failed for operation: " .. operation_id .. " (status: " .. (res.statusCode or "unknown") .. ")")
+        if res.status ~= 200 then
+          print("Setup failed for operation: " .. operation_id .. " (status: " .. (res.status or "unknown") .. ")")
         end
       end
     end,
@@ -41,8 +41,8 @@ local exports = {
         },
         body = ""
       })
-      if res.statusCode ~= 200 then
-        print("Teardown failed (status: " .. (res.statusCode or "unknown") .. ")")
+      if res.status ~= 200 then
+        print("Teardown failed (status: " .. (res.status or "unknown") .. ")")
       end
     end,
   },

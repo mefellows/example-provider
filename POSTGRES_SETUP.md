@@ -166,7 +166,7 @@ This project includes Quilt conformance tests in two variants:
 
 **In-Memory Tests:**
 ```bash
-npm test -- api.test.js
+npm test -- api-inmemory.test.js
 ```
 
 **PostgreSQL Tests:**

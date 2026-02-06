@@ -16,7 +16,7 @@ const runQuilt = (variant = 'default') => {
         '--server-url',
         'http://localhost:8080/',
         '--log-level',
-        'trace',
+        'debug',
         '--output-dir',
         'output'
       ],

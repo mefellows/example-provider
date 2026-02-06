@@ -16,7 +16,6 @@ const authMiddleware = require('../middleware/auth.middleware');
 app.use(bodyParser.json());
 app.use(authMiddleware);
 app.use(require('./product.routes'));
-app.use(require('../../automation/test.routes')); // Test only routes for setting up test state
 const server = app.listen("8080");
 
 describe("API Tests with Quilt - PostgreSQL", () => {

@@ -50,7 +50,7 @@ npm run test:postgres
   - `repositories/` - Repository implementations (in-memory and PostgreSQL)
   - `product.routes.js` - API routes
   - `product.controller.js` - Request handlers
-  - `api.test.js` - In-memory Quilt conformance tests
+  - `api-inmemory.test.js` - In-memory Quilt conformance tests
   - `api-postgres.test.js` - PostgreSQL Quilt conformance tests
 
 - `quilt/` - Quilt test definitions for in-memory repository

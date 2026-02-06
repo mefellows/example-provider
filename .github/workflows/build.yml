@@ -16,13 +16,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
-      - name: Install
+      
+      - name: Download and install Drift
+        run: |
+          wget https://download.pactflow.io/quilt/latest/linux-x86_64.zip
+          unzip linux-x86_64.zip
+          chmod +x quilt*
+          sudo mv quilt /usr/local/bin/
+          quilt --version
+      
+      - name: Install dependencies
         run: npm i
-      - name: Test
-        run: GIT_BRANCH=${GITHUB_REF:11} make test
+      
+      - name: Run tests
+        run: GIT_BRANCH=${GITHUB_REF:11} make ci
+      
+      - name: Store JUnit report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit-report
+          path: output/reports/junit/verification-result.xml
+          retention-days: 30
 
   # Runs on branches as well, so we know the status of our PRs
   can-i-deploy:

@@ -91,8 +91,13 @@ router.post('/test/setup/:operationId', testOnlyGuard, async (req, res) => {
 });
 
 // POST /test/teardown/:operationId - Teardown/cleanup state after an operation
-router.post('/test/teardown/', testOnlyGuard, async (req, res) => {
+router.post('/test/reset', testOnlyGuard, async (req, res) => {
     try {
+        const operationId = req.params.operationId;
+        
+        // Get the initialized repository
+        const repo = await controller.initializeRepository();
+
         await repo.resetProducts();
         
         res.status(200).send({ 
