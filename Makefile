@@ -3,7 +3,7 @@ GITHUB_REPO := "pactflow/example-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 PACT_CLI=docker run --rm -v ${PWD}:/app/tmp -e PACT_BROKER_BASE_URL -e PACT_BROKER_TOKEN pactfoundation/pact:latest
 OAS_PATH=/app/tmp/openapi.yaml
-REPORT_PATH?=/app/tmp/output/reports/junit/verification-result.xml
+REPORT_PATH?=output/reports/junit/verification-result.xml
 REPORT_FILE_CONTENT_TYPE?=text/plain
 VERIFIER_TOOL?=drift
 
@@ -60,16 +60,15 @@ ci:
 publish_provider_contract:
 	@echo "\n========== STAGE: publish-provider-contract (spec + results) ==========\n"
 	${PACT_CLI} pactflow publish-provider-contract \
-      ${OAS_PATH} \
-      --provider ${PACTICIPANT} \
-      --provider-app-version ${GIT_COMMIT} \
-      --branch ${GIT_BRANCH} \
-      --content-type application/yaml \
-      --verification-exit-code=${EXIT_CODE} \
-      --verification-results ${REPORT_PATH} \
-      --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
-      --verifier ${VERIFIER_TOOL} \
-			--log-level trace
+	  ${OAS_PATH} \
+	  --provider ${PACTICIPANT} \
+	  --provider-app-version ${GIT_COMMIT} \
+	  --branch ${GIT_BRANCH} \
+	  --content-type application/yaml \
+	  --verification-exit-code=${EXIT_CODE} \
+		--verification-results '$(shell cat ${REPORT_PATH})' \
+	  --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
+	  --verifier ${VERIFIER_TOOL}
 
 ## =====================
 ## Deploy tasks
