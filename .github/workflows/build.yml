@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p /tmp/drift
           cd /tmp/drift
-          wget https://download.pactflow.io/drift/latest/linux-x86_64.tgz | tar xz
+          wget -O - https://download.pactflow.io/drift/latest/linux-x86_64.tgz | tar xz
           chmod +x drift*
           sudo mv * /usr/local/bin/
           drift --version
