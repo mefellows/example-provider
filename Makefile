@@ -66,7 +66,7 @@ publish_provider_contract:
 	  --branch ${GIT_BRANCH} \
 	  --content-type application/yaml \
 	  --verification-exit-code=${EXIT_CODE} \
-		--verification-results '$(shell cat ${REPORT_PATH})' \
+		--verification-results ${REPORT_PATH} \
 	  --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
 	  --verifier ${VERIFIER_TOOL}
 
