@@ -3,8 +3,8 @@ GITHUB_REPO := "pactflow/example-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 PACT_CLI=docker run --rm -v ${PWD}:/app/tmp -e PACT_BROKER_BASE_URL -e PACT_BROKER_TOKEN pactfoundation/pact:latest
 OAS_PATH=/app/tmp/openapi.yaml
-REPORT_PATH?=output/reports/junit/verification-result.xml
-REPORT_FILE_CONTENT_TYPE?=text/plain
+REPORT_PATH?=/app/tmp/output/results/verification.20260211165312.result
+REPORT_FILE_CONTENT_TYPE?=application/vnd.smartbear.drift.result
 VERIFIER_TOOL?=drift
 
 # Only deploy from master
@@ -66,7 +66,7 @@ publish_provider_contract:
 	  --branch ${GIT_BRANCH} \
 	  --content-type application/yaml \
 	  --verification-exit-code=${EXIT_CODE} \
-		--verification-results ${REPORT_PATH} \
+	  --verification-results ${REPORT_PATH} \
 	  --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
 	  --verifier ${VERIFIER_TOOL}
 
