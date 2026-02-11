@@ -1,4 +1,4 @@
-quilt-testcase-file: v1
+drift-testcase-file: v1
 title: "Product API Tests - PostgreSQL"
 
 sources:

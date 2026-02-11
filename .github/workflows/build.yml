@@ -23,12 +23,12 @@ jobs:
       
       - name: Download and install Drift
         run: |
-          wget https://download.pactflow.io/quilt/latest/linux-x86_64.zip
-          mkdir -p /tmp/quilt
-          unzip linux-x86_64.zip -d /tmp/quilt
-          chmod +x /tmp/quilt/quilt*
-          sudo mv /tmp/quilt/* /usr/local/bin/
-          quilt --version
+          mkdir -p /tmp/drift
+          cd /tmp/drift
+          wget https://download.pactflow.io/drift/latest/linux-x86_64.tgz | tar xz
+          chmod +x drift*
+          sudo mv * /usr/local/bin/
+          drift --version
       
       - name: Install dependencies
         run: npm i

@@ -1,7 +1,7 @@
 // Set repository type for this test suite
 process.env.REPOSITORY_TYPE = 'inmemory';
 
-const { runQuilt } = require('../../automation/drift');
+const { runDrift } = require('../../automation/drift');
 const controller = require('./product.controller');
 const bodyParser = require('body-parser');
 
@@ -25,7 +25,7 @@ describe("API Tests with Drift", () => {
   });
 
   it("Validates the API comforms to its OpenAPI Description", async () => {
-    const exitCode = await runQuilt();
+    const exitCode = await runDrift();
     expect(exitCode).toBe(0);
   })
 });

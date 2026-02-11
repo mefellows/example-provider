@@ -1,14 +1,14 @@
 // Utility function to run Drift verifier with specified test files and configuration
 const { spawn } = require('child_process');
 
-const runQuilt = (variant = 'default') => {
+const runDrift = (variant = 'default') => {
   const testFilePath = variant === 'postgres' 
-    ? './quilt-postgres/quilt.yaml'
-    : './quilt/quilt.yaml';
+    ? './drift-postgres/drift.yaml'
+    : './drift/drift.yaml';
 
   return new Promise((resolve, reject) => {
     const child = spawn(
-      'quilt',
+      'drift',
       [
         'verifier',
         '--test-files',
@@ -31,5 +31,5 @@ const runQuilt = (variant = 'default') => {
   });
 };
 
-module.exports = { runQuilt };
+module.exports = { runDrift: runDrift };
 

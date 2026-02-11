@@ -50,18 +50,18 @@ npm run test:postgres
   - `repositories/` - Repository implementations (in-memory and PostgreSQL)
   - `product.routes.js` - API routes
   - `product.controller.js` - Request handlers
-  - `api-inmemory.test.js` - In-memory Quilt conformance tests
-  - `api-postgres.test.js` - PostgreSQL Quilt conformance tests
+  - `api-inmemory.test.js` - In-memory Drift conformance tests
+  - `api-postgres.test.js` - PostgreSQL Drift conformance tests
 
-- `quilt/` - Quilt test definitions for in-memory repository
+- `drift/` - Drift test definitions for in-memory repository
   - `product.lua` - HTTP-based state management Lua hooks
-  - `quilt.yaml` - Test scenarios
+  - `drift.yaml` - Test scenarios
 
-- `quilt-postgres/` - Quilt test definitions for PostgreSQL
+- `drift-postgres/` - Drift test definitions for PostgreSQL
   - `product-postgres.lua` - Direct database state manipulation Lua hooks
-  - `quilt.yaml` - Test scenarios (identical to quilt/)
+  - `drift.yaml` - Test scenarios (identical to drift/)
 
 - `automation/` - Test automation
-  - `drift.js` - Quilt test runner
+  - `drift.js` - Drift test runner
   - `setup-postgres-state-http.js` - State management HTTP server
   - `test.routes.js` - HTTP test endpoints

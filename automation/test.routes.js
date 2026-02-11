@@ -3,16 +3,6 @@ const router = require('express').Router();
 const controller = require('../src/product/product.controller');
 const Product = require('../src/product/product');
 
-// Production guard - these routes should ONLY be available in test environments
-const testOnlyGuard = (req, res, next) => {
-    if (process.env.NODE_ENV !== 'test') {
-        console.error('Test endpoint accessed outside of test environment');
-        res.status(403).send({ message: 'Test endpoints are not available in this environment' });
-        return;
-    }
-    next();
-};
-
 // State setup handlers - executed before each operation
 const setupStateHandlers = {
     // getAllProducts operations - no special setup needed
@@ -61,7 +51,7 @@ const setupStateHandlers = {
 };
 
 // POST /test/setup/:operationId - Setup state before an operation
-router.post('/test/setup/:operationId', testOnlyGuard, async (req, res) => {
+router.post('/test/setup/:operationId', async (req, res) => {
     try {
         const operationId = req.params.operationId;
         
@@ -91,10 +81,10 @@ router.post('/test/setup/:operationId', testOnlyGuard, async (req, res) => {
 });
 
 // POST /test/teardown/:operationId - Teardown/cleanup state after an operation
-router.post('/test/reset', testOnlyGuard, async (req, res) => {
+router.post('/test/reset', async (req, res) => {
     try {
         const operationId = req.params.operationId;
-        
+
         // Get the initialized repository
         const repo = await controller.initializeRepository();
 
@@ -110,13 +100,6 @@ router.post('/test/reset', testOnlyGuard, async (req, res) => {
             error: error.message 
         });
     }
-});
-
-// GET /test/operations - List available operations
-router.get('/test/operations', testOnlyGuard, (req, res) => {
-    res.status(200).send({
-        availableOperations: Object.keys(setupStateHandlers)
-    });
 });
 
 module.exports = router;

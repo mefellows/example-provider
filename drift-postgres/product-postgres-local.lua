@@ -2,7 +2,7 @@ local function bearer_token()
   return os.date("!%Y-%m-%dT%H:%M:%SZ")
 end
 
--- Extract operationId from Quilt data block
+-- Extract operationId from Drift data block
 -- Data structure: Integer(1)=description, Integer(2)=operationId, Integer(3)=test suite, Integer(4)=duration (optional)
 local function extract_operation_id(data)
   if data and data[2] then

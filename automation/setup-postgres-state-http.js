@@ -1,6 +1,6 @@
 // State management server for PostgreSQL test state setup via HTTP API
 // This server listens for state setup requests and directly manipulates the PostgreSQL database accordingly.
-// It is designed to be used in conjunction with Quilt for API testing, allowing test cases to set up their required state before execution.
+// It is designed to be used in conjunction with Drift for API testing, allowing test cases to set up their required state before execution.
 // Usage:  
 //   node setup-postgres-state-http.js server - Starts the state management HTTP server
 //   node setup-postgres-state-http.js setup <operationId> - Sets up the database state for the specified operation ID via HTTP request

@@ -1,6 +1,6 @@
 // State management script for PostgreSQL test state setup
 // This script can be invoked with command line arguments to set up specific test states or reset the database.
-// It is designed to be used in conjunction with Quilt for API testing, allowing test cases to set up their required state before execution.
+// It is designed to be used in conjunction with Drift for API testing, allowing test cases to set up their required state before execution.
 // Usage:
 //   node setup-postgres-state.js setup <operationId> - Sets up the database state for the specified operation ID
 //   node setup-postgres-state.js reset - Resets the database state by clearing all products

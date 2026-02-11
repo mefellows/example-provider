@@ -57,7 +57,7 @@ You can customize the PostgreSQL connection by setting environment variables:
 | `DB_USER` | `postgres` | PostgreSQL username |
 | `DB_PASSWORD` | `postgres` | PostgreSQL password |
 | `DB_NAME` | `product_service` | PostgreSQL database name |
-| `STATE_SERVER_URL` | `http://localhost:9000` | State management server URL (for Quilt tests) |
+| `STATE_SERVER_URL` | `http://localhost:9000` | State management server URL (for Drift tests) |
 
 ### Example: Custom PostgreSQL Connection
 
@@ -160,9 +160,9 @@ This automatically:
 3. Runs the PostgreSQL-specific tests
 4. Cleans up all resources
 
-### Quilt API Conformance Tests
+### Drift API Conformance Tests
 
-This project includes Quilt conformance tests in two variants:
+This project includes Drift conformance tests in two variants:
 
 **In-Memory Tests:**
 ```bash
@@ -178,7 +178,7 @@ Both test suites verify the API against the OpenAPI specification. The PostgreSQ
 
 ### State Management Server
 
-For PostgreSQL Quilt tests, a state management server is required:
+For PostgreSQL Drift tests, a state management server is required:
 
 ```bash
 # Start the server (runs on port 9000)
@@ -238,5 +238,5 @@ STATE_SERVER_PORT=9001 npm run state-server:start
 And update the Lua test configuration to use the new port:
 
 ```bash
-STATE_SERVER_URL=http://localhost:9001 quilt verifier --test-files ./quilt-postgres/quilt.yaml
+STATE_SERVER_URL=http://localhost:9001 drift verifier --test-files ./drift-postgres/drift.yaml
 ```

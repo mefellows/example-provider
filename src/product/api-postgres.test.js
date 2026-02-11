@@ -6,7 +6,7 @@ process.env.DB_USER = process.env.DB_USER || 'postgres';
 process.env.DB_PASSWORD = process.env.DB_PASSWORD || 'postgres';
 process.env.DB_NAME = process.env.DB_NAME || 'product_service';
 
-const { runQuilt } = require('../../automation/drift');
+const { runDrift } = require('../../automation/drift');
 const controller = require('./product.controller');
 const bodyParser = require('body-parser');
 
@@ -18,7 +18,7 @@ app.use(authMiddleware);
 app.use(require('./product.routes'));
 const server = app.listen("8080");
 
-describe("API Tests with Quilt - PostgreSQL", () => {
+describe("API Tests with Drift - PostgreSQL", () => {
   // Ensure server and pg connection are closed
   afterAll(async () => {
     await new Promise((resolve) => server.close(resolve));
@@ -29,7 +29,7 @@ describe("API Tests with Quilt - PostgreSQL", () => {
   });
 
   it("Validates the API conforms to its OpenAPI Description using PostgreSQL", async () => {
-    const exitCode = await runQuilt('postgres');
+    const exitCode = await runDrift('postgres');
     expect(exitCode).toBe(0);
   })
 });

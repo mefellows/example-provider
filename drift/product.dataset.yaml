@@ -1,4 +1,4 @@
-quilt-dataset-file: V1
+drift-dataset-file: V1
 datasets:
   - name: product-data
     data:

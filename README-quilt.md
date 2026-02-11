@@ -1,4 +1,4 @@
-# Quilt Example
+# Drift Example
 
 In this example, we'll cover strategies to address common testing scenarios, including but not limited t:
 

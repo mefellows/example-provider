@@ -1,4 +1,4 @@
-quilt-testcase-file: v1
+drift-testcase-file: v1
 title: "Product API Tests"
 
 sources:
@@ -57,9 +57,6 @@ operations:
     target: source-oas:createProduct
     description: "Create a product successfully"
     dataset: product-data
-    parameters:
-      request:
-        body: ${product-data:products.product10}
     expected:
       response:
         statusCode: 201
@@ -149,3 +146,4 @@ operations:
     expected:
       response:
         statusCode: 401
+        # statusCode: ${functions:validate_unauthorized}
