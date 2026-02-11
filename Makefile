@@ -3,7 +3,9 @@ GITHUB_REPO := "pactflow/example-provider"
 PACT_CHANGED_WEBHOOK_UUID := "c76b601e-d66a-4eb1-88a4-6ebc50c0df8b"
 PACT_CLI=docker run --rm -v ${PWD}:/app/tmp -e PACT_BROKER_BASE_URL -e PACT_BROKER_TOKEN pactfoundation/pact:latest
 OAS_PATH=/app/tmp/openapi.yaml
-REPORT_PATH?=/app/tmp/output/results/verification.20260211165312.result
+MOUNT=/app/tmp
+LOCAL_REPORT_DIR_PATH?=output/results
+REPORT_PATH?=${MOUNT}/output/results/
 REPORT_FILE_CONTENT_TYPE?=application/vnd.smartbear.drift.result
 VERIFIER_TOOL?=drift
 
@@ -49,7 +51,7 @@ fake_ci_webhook:
 test: .env
 	npm run test
 
-ci:
+ci: clean
 	@if make test; then \
 		EXIT_CODE=0 make publish_provider_contract; \
 	else \
@@ -66,7 +68,7 @@ publish_provider_contract:
 	  --branch ${GIT_BRANCH} \
 	  --content-type application/yaml \
 	  --verification-exit-code=${EXIT_CODE} \
-	  --verification-results ${REPORT_PATH} \
+	  --verification-results "${MOUNT}/$(shell find ${LOCAL_REPORT_DIR_PATH} -name "verification.*.result" -type f | head -1)" \
 	  --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
 	  --verifier ${VERIFIER_TOOL}
 
@@ -94,3 +96,6 @@ record_deployment: .env
 
 .env:
 	touch .env
+
+clean:
+	mkdir -p ${LOCAL_REPORT_DIR_PATH} && rm -rf ${LOCAL_REPORT_DIR_PATH}/*
