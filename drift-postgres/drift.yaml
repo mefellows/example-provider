@@ -1,3 +1,5 @@
+$schema: https://download.pactflow.io/drift/schemas/drift.testcases.v1.schema.json
+
 drift-testcase-file: v1
 title: "Product API Tests - PostgreSQL"
 

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://download.pactflow.io/drift/schemas/drift.testcases.v1.schema.json
 drift-testcase-file: v1
 title: "Product API Tests"
 
@@ -22,7 +23,8 @@ global:
     parameters:
       authentication:
         scheme: bearer
-        token: ${functions:bearer_token}
+        token: ${functions:bearer_token} # Example using function to generate token value dynamically at runtime
+        # token: ${env:BEARER_TOKEN}       # Example of using environment variable for token value, which can be set in CI/CD pipeline or locally for testing
 
 operations:
   # GIVEN a valid bearer token
