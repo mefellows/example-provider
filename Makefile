@@ -71,7 +71,7 @@ publish_provider_contract:
 	  --verification-results "${MOUNT}/$(shell find ${LOCAL_REPORT_DIR_PATH} -name "verification.*.result" -type f | head -1)" \
 	  --verification-results-content-type ${REPORT_FILE_CONTENT_TYPE} \
 	  --verifier ${VERIFIER_TOOL} \
-		--verifier-version $(drift --version | cut -d " " -f4)
+	  --verifier-version $(shell drift --version | cut -d " " -f4)
 
 ## =====================
 ## Deploy tasks
