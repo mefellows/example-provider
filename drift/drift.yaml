@@ -84,10 +84,6 @@ operations:
     parameters:
       headers:
         authorization: "Bearer invalid-token"
-      request:
-        body:
-          id: 20
-          name: "test product"
     expected:
       response:
         statusCode: 401
@@ -143,8 +139,6 @@ operations:
     parameters:
       headers:
         authorization: "Bearer invalid-token"
-      path:
-        id: 10
     expected:
       response:
         statusCode: 401
