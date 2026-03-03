@@ -22,6 +22,7 @@ describe("API Tests with Drift", () => {
     if (repo && typeof repo.close === 'function') {
       await repo.close();
     }
+    console.log("\n\n")
   });
 
   it("Validates the API comforms to its OpenAPI Description", async () => {

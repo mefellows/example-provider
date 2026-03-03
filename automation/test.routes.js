@@ -53,6 +53,7 @@ const setupStateHandlers = {
 // POST /test/setup/:operationId - Setup state before an operation
 router.post('/test/setup/:operationId', async (req, res) => {
     try {
+        console.log("state setup for operation:", req.params.operationId);
         const operationId = req.params.operationId;
         
         if (!setupStateHandlers[operationId]) {
@@ -82,6 +83,7 @@ router.post('/test/setup/:operationId', async (req, res) => {
 
 // POST /test/teardown/:operationId - Teardown/cleanup state after an operation
 router.post('/test/reset', async (req, res) => {
+    console.log("state teardown for operation:", req.params.operationId);
     try {
         const operationId = req.params.operationId;
 
