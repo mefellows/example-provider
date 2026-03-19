@@ -1,4 +1,4 @@
-// Utility function to run Drift verifier with specified test files and configuration
+// Utility function to run drift verify with specified test files and configuration
 const { spawn } = require('child_process');
 
 const runDrift = (variant = 'default') => {
@@ -10,7 +10,7 @@ const runDrift = (variant = 'default') => {
     const child = spawn(
       'drift',
       [
-        'verifier',
+        'verify',
         '--test-files',
         testFilePath,
         '--server-url',

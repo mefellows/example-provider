@@ -375,13 +375,13 @@ end
 #### Full test execution
 Run all tests in a test case file:
 ```
-drift verifier --test-files path/to/testcase.yaml --server-url http://localhost:8080
+drift verify --test-files path/to/testcase.yaml --server-url http://localhost:8080
 ```
 
 #### Testing a single operation
 To validate a specific operation (useful when authoring or updating tests):
 ```
-drift verifier --test-files path/to/testcase.yaml --server-url http://localhost:8080 --operation operationId
+drift verify --test-files path/to/testcase.yaml --server-url http://localhost:8080 --operation operationId
 ```
 
 ### Workflow for Generating New Tests
@@ -391,7 +391,7 @@ When the user asks you to create tests, follow this phased approach:
 #### Phase 1: Start Simple
 1. Identify the simplest GET endpoint in the OpenAPI spec that doesn't require path parameters
 2. Create ONE test operation for this endpoint to verify the basic happy path
-3. Have the user execute just this test with: `drift verifier --test-files testcase.yaml --server-url http://localhost:8080 --operation <operationId>`
+3. Have the user execute just this test with: `drift verify --test-files testcase.yaml --server-url http://localhost:8080 --operation <operationId>`
 4. Once this first test passes, proceed to Phase 2
 
 Example: Instead of creating 10 test operations at once, start with:
@@ -407,7 +407,7 @@ operations:
 
 Then have the user run:
 ```
-drift verifier --test-files testcase.yaml --server-url http://localhost:8080 --operation getAllProducts
+drift verify --test-files testcase.yaml --server-url http://localhost:8080 --operation getAllProducts
 ```
 
 #### Phase 2: Build the Test Suite Incrementally
@@ -419,7 +419,7 @@ Once the first test passes:
 
 For each new test, guide the user to execute it in isolation using the `--operation` flag:
 ```
-drift verifier --test-files testcase.yaml --server-url http://localhost:8080 --operation <newOperationId>
+drift verify --test-files testcase.yaml --server-url http://localhost:8080 --operation <newOperationId>
 ```
 
 ### Workflow for Updating or Adding Tests
@@ -429,14 +429,14 @@ When the user asks to update an existing test or add new ones:
 1. Create or modify the test operation in the test case file
 2. Guide them to execute just that operation with the `--operation` flag:
 ```
-drift verifier --test-files testcase.yaml --server-url http://localhost:8080 --operation <operationId>
+drift verify --test-files testcase.yaml --server-url http://localhost:8080 --operation <operationId>
 ```
 
 This allows for rapid iteration without running the full test suite each time.
 
 ### Available Command-Line Options
 
-The `drift verifier` command supports:
+The `drift verify` command supports:
 - `--test-files`: Test case file(s) to load (required)
 - `--server-url`: Base URL of the server to test (required)
 - `--operation`: Validate a single operation by ID (can be repeated for multiple operations)
@@ -447,5 +447,5 @@ The `drift verifier` command supports:
 - `--log-level`: Set logging level (trace, debug, info, warn, error)
 - `--generate-result`: Generate a result bundle file for PactFlow integration
 
-For more details, run: `drift verifier --help`
+For more details, run: `drift verify --help`
 ```

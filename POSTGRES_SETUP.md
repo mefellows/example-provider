@@ -238,5 +238,5 @@ STATE_SERVER_PORT=9001 npm run state-server:start
 And update the Lua test configuration to use the new port:
 
 ```bash
-STATE_SERVER_URL=http://localhost:9001 drift verifier --test-files ./drift-postgres/drift.yaml
+STATE_SERVER_URL=http://localhost:9001 drift verify --test-files ./drift-postgres/drift.yaml
 ```
