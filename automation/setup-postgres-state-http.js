@@ -61,7 +61,7 @@ const initializePool = async () => {
                 if (pool) {
                     try {
                         await pool.end();
-                    } catch (e) {
+                    } catch {
                         // ignore
                     }
                 }
